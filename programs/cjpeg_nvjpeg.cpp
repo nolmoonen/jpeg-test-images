@@ -1,4 +1,4 @@
-// /usr/local/cuda/bin/nvcc cjpeg_nvjpeg.cpp -lnvjpeg
+// /usr/local/cuda/bin/nvcc cjpeg_nvjpeg.cpp -lnvjpeg --output-file cjpeg_nvjpeg
 #include "util.hpp"
 
 #include <cuda_runtime.h>
@@ -85,7 +85,8 @@ int main(int argc, const char* argv[])
     CHECK_NVJPEG(
         nvjpegEncodeRetrieveBitstream(nv_handle, nv_enc_state, jpeg.data(), &length, stream));
 
-    std::ofstream file("out_nvjpeg.jpg", std::ios::out | std::ios::binary);
+    std::string out = std::string(argv[1]) + ".nvjpeg.jpg";
+    std::ofstream file(out, std::ios::out | std::ios::binary);
     if (!file.is_open()) {
         std::cerr << "failed to open write file\n";
         return EXIT_FAILURE;
