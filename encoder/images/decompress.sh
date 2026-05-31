@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-for i in *.ppm; do
-    djxl $i.jxl $i.ppm;
+for i in *.jxl; do
+    djxl $i $(basename $i .jxl);
 done
